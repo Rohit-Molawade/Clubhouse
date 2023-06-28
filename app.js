@@ -9,10 +9,10 @@ require('dotenv').config();
 var indexRouter = require('./routes/index');
 
 //MongoDB connection
-try {
+mongo_connect().catch((err) => console.log('Mongo Connection not possible'))
+
+async function mongo_connect() {
     await mongoose.connect(process.env.Mongo_URL);
-} catch (error) {
-    console.log('Error connecting to Mongo database');
 }
 
 var app = express();

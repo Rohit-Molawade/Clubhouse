@@ -1,26 +1,25 @@
+exports.home_get = function (req, res, next) {
+	res.render('index', {
+		title: 'Home Page',
+	});
+	return;
+};
 
-module.export = {
-    login_get: function login_get(req, res, next) {
-        //controller for Login Get
-    },
-
-    login_post: function login_post(req, res, next) {
-        //controller for Login Post
-    },
-
-    signup_get: function signup_get(req, res, next) {
-        //controller for Signup Get
-    },
-
-    signup_post: function signup_post(req, res, next) {
-        //controller for Signup Post
-    },
-
-    new_post_get: function new_post_get(req, res, next) {
-        //controller for New post Get
-    },
-
-    new_post_post: function new_post_post(req, res, next) {
-        //controller for new Post Post
-    },
-}
+exports.login_get = function (req, res, next) {
+	//controller for Login get
+};
+exports.login_post = function (req, res, next) {
+	//controller for Login Post
+};
+exports.signup_get = function (req, res, next) {
+	//controller for Signup Get
+};
+exports.signup_post = function (req, res, next) {
+	//controller for Signup Post
+};
+exports.new_post_get = function (req, res, next) {
+	//controller for New post Get
+};
+exports.new_post_post = function (req, res, next) {
+	//controller for new Post Post
+};

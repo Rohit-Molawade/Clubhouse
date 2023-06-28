@@ -1,10 +1,9 @@
 var express = require('express');
+const UserController = require('../controllers/user.js');
 var router = express.Router();
 
 /* GET home page. */
-router.get('/', () => {
-    //Get Home page
-});
+router.get('/', UserController.home_get);
 
 /* GET login page. */
 router.get('/login', () => {
