@@ -2,10 +2,17 @@
 <html>
   <head>
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="/stylesheets/output.css" />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="flex flex-row justify-between bg-black align-middle text-white">
+      <div class="flex flex-auto flex-row">
+        <p class="p-5 text-2xl font-semibold">ClubHouse</p>
+      </div>
+      <div class="font-NavLinks flex basis-3/12 flex-row justify-center space-x-5 px-2 align-middle text-base">
+        <button onclick="window.location.href='/login'" class="p-2 text-gray-400 hover:text-white hover:border-b-4 border-red-500">Login</button>
+        <button onclick="window.location.href='/signup'" class="p-2 text-gray-400 hover:text-white hover:border-b-4 border-red-500">Sign Up</button>
+      </div>
+    </div>
   </body>
 </html>
