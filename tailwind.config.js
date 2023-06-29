@@ -5,7 +5,13 @@ module.exports = {
     fontFamily: {
       NavLinks: ['Inter', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      colors: {
+        'header-background': '#171717',
+        'content-background': '#EDEDED',
+        'logo-text': '#EDEDED',
+      },
+    },
   },
   plugins: [],
 };
