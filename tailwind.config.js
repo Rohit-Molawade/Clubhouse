@@ -1,9 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./views/*.ejs'],
+  content: ['./views/*.ejs', './views/partials/*.ejs'],
   theme: {
     fontFamily: {
-      NavLinks: ['Inter', 'sans-serif'],
+      Inter: ['Inter', 'Arial', 'sans-serif'],
+      Raleway: ['Raleway', 'sans-serif'],
+      YsabeauSC: ['Ysabeau SC', 'sans-serif'],
     },
     extend: {
       colors: {
