@@ -2,4 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter&family=Raleway&family=Ysabeau+SC&display=swap');
+@layer components {
+  .form-primary {
+    @apply my-4 border-0 border-b-2 border-title-text p-2 text-sm focus:border-title-text focus:ring-title-text opacity-70;
+  }
+}

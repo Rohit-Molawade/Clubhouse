@@ -6,9 +6,7 @@ var router = express.Router();
 router.get('/', UserController.home_get);
 
 /* GET login page. */
-router.get('/login', () => {
-    //GET Login Page
-});
+router.get('/login', UserController.login_get);
 
 /* POST login page. */
 router.post('/login', () => {
@@ -16,9 +14,7 @@ router.post('/login', () => {
 });
 
 /* GET sigup page. */
-router.get('/signup', () => {
-    //GET signup Page
-});
+router.get('/signup', UserController.signup_get);
 
 /* POST signup page. */
 router.post('/signup', () => {

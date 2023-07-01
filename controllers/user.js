@@ -4,7 +4,7 @@ const User = require('../models/User.js');
 exports.home_get = function (req, res, next) {
   Post.find()
     .sort({ timestamp: -1 })
-	.populate('author')
+    .populate('author')
     .exec()
     .then((result) => {
       res.render('index', {
@@ -18,15 +18,19 @@ exports.home_get = function (req, res, next) {
   return;
 };
 
-exports.login_get = function (req, res, next) {
-  //controller for Login get
-};
+exports.login_get = function (req, res, next) {};
 exports.login_post = function (req, res, next) {
   //controller for Login Post
 };
+
 exports.signup_get = function (req, res, next) {
-  //controller for Signup Get
+  res.render('signup', {
+    title: 'SignUp Page',
+    url: req.url,
+  });
+  return;
 };
+
 exports.signup_post = function (req, res, next) {
   //controller for Signup Post
 };
