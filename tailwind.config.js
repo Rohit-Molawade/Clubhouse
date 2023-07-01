@@ -12,8 +12,11 @@ module.exports = {
         'header-background': '#171717',
         'content-background': '#EDEDED',
         'logo-text': '#EDEDED',
+        'title-text': '#DA0037',
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
 };
