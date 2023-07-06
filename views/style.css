@@ -4,6 +4,18 @@
 
 @layer components {
   .form-primary {
-    @apply my-4 border-0 border-b-2 border-title-text p-2 text-sm focus:border-title-text focus:ring-title-text opacity-70;
+    @apply my-4 w-full border-0 border-b-2 border-title-text p-2 text-sm opacity-70 focus:border-title-text focus:ring-title-text;
+  }
+
+  .radio-grp {
+    @apply invisible;
+  }
+
+  .radio-img {
+    @apply aspect-square w-32 max-w-none rounded-full object-contain p-2;
+  }
+
+  .radio-grp:checked + label > img {
+    @apply border-2 border-title-text;
   }
 }

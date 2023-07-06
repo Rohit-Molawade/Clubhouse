@@ -17,9 +17,7 @@ router.post('/login', () => {
 router.get('/signup', UserController.signup_get);
 
 /* POST signup page. */
-router.post('/signup', () => {
-    //POST Signup Page
-});
+router.post('/signup', UserController.signup_post );
 
 /* GET new_post page. */
 router.get('/new_post', () => {
