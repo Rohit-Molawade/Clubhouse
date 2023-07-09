@@ -4,6 +4,7 @@ const Avatar = require('../models/Avatar.js');
 const { body, validationResult } = require('express-validator');
 const async = require('async');
 const crypt = require('bcrypt');
+const passport = require('passport');
 const saltrounds = 10;
 
 exports.home_get = function (req, res, next) {
@@ -22,10 +23,35 @@ exports.home_get = function (req, res, next) {
   return;
 };
 
-exports.login_get = function (req, res, next) {};
-exports.login_post = function (req, res, next) {
-  //controller for Login Post
+exports.login_get = function (req, res, next) {
+  res.render('login', {
+    title: 'Login Page',
+    url: req.url,
+    error: req.flash('message'),
+  });
 };
+
+exports.login_post = [
+  body('email').trim().notEmpty().isEmail().toLowerCase().escape().withMessage('Email is invalid'),
+  body('password').trim().isLength({ min: 1 }).escape().withMessage('Password is invalid'),
+  (req, res, next) => {
+    const error = validationResult(req);
+    if (!error.isEmpty()) {
+      res.render('login', {
+        title: 'Login Page',
+        url: req.url,
+        email: req.email,
+        error: error.array(),
+      });
+      return;
+    }
+    passport.authenticate('local', {
+      successRedirect: '/',
+      failureRedirect: '/login',
+      failureFlash: true,
+    })(req, res, next);
+  },
+];
 
 exports.signup_get = function (req, res, next) {
   Avatar.find()
@@ -43,9 +69,9 @@ exports.signup_get = function (req, res, next) {
 exports.signup_post = [
   body('first_name').trim().notEmpty().isString().escape().withMessage('First name must be specified'),
   body('last_name').trim().notEmpty().isString().escape().withMessage('Last name must be specified'),
-  body('email').trim().notEmpty().isEmail().escape().withMessage('Email is invalid'),
-  body('password').trim().isLength({ min: 1 }).isStrongPassword().withMessage('Password is invalid'),
-  body('confirm_password').trim().isLength({ min: 1 }).isStrongPassword().withMessage('Confirm password is invalid'),
+  body('email').trim().notEmpty().isEmail().toLowerCase().escape().withMessage('Email is invalid'),
+  body('password').trim().isLength({ min: 1 }).isStrongPassword().escape().withMessage('Password is invalid'),
+  body('confirm_password').trim().isLength({ min: 1 }).isStrongPassword().escape().withMessage('Confirm password is invalid'),
   body('avatar').isString().trim().notEmpty().optional().escape(),
   async (req, res, next) => {
     const error_list = validationResult(req);
@@ -112,7 +138,18 @@ exports.signup_post = [
 
               user.save((err) => {
                 if (err) return next(err);
-                res.redirect('/');
+                const userinformation = {
+                  id: user.id,
+                  first_name: user.first_name,
+                  last_name: user.last_name,
+                  email: user.email,
+                  avatar: user.avatar,
+                  membership: user.membership_status,
+                };
+                req.login(userinformation, (err) => {
+                  if (err) return next(err);
+                  res.redirect('/');
+                });
               });
             })();
           } catch (error) {

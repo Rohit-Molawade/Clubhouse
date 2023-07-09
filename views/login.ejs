@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/meta.ejs')%>
+  <body class="bg-content-background">
+    <!--Header Partial-->
+    <%- include('./partials/header.ejs') %>
+    <div class="flex content-center justify-center">
+      <div class="mx-48 my-16 flex max-w-lg content-center justify-center rounded-2xl bg-white py-12 pl-16 pr-32 shadow-lg">
+        <div class="flex flex-col font-Inter">
+          <p class="mb-6 font-YsabeauSC text-4xl font-bold tracking-wider text-title-text">login to your account</p>
+          <div>
+            <form action="/login" method="POST">
+              <input type="email" name="email" id="email" class="form-primary" placeholder="Email" required value='<%= typeof email === 'undefined' ?
+              '' : email %>'/><br />
+              <input type="password" name="password" id="password" class="form-primary" placeholder="Password" required /><br />
+              <button
+                type="submit"
+                class="mt-10 w-full rounded-md bg-title-text p-3 font-Raleway text-base font-semibold text-white hover:ring-2 hover:ring-title-text hover:ring-offset-0">
+                Log In
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <% if (typeof error !== 'undefined' && error.length) { %>
+      <div class="flex items-center justify-center">
+        <div class="h-fit bg-title-text p-10 font-Raleway text-xl text-white">
+          <ul>
+            <% error.forEach(err => { %>
+            <li><%= err.msg || err %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+      <% } %>
+    </div>
+  </body>
+</html>
