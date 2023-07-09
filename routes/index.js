@@ -18,13 +18,15 @@ router.get('/signup', UserController.signup_get);
 router.post('/signup', UserController.signup_post);
 
 /* GET new_post page. */
-router.get('/new_post', () => {
-  //GET New Post form
-});
+router.get('/new_post', UserController.new_post_get);
 
 /* POST new_post page. */
 router.post('/new_post', () => {
   //GET New Post form
 });
+
+router.get('/be_member', UserController.be_member_get);
+
+router.post('/be_member', UserController.be_member_post);
 
 module.exports = router;

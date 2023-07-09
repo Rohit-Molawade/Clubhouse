@@ -19,3 +19,7 @@
     @apply border-2 border-title-text;
   }
 }
+
+body{
+  height: 100vh;
+}

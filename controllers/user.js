@@ -171,8 +171,50 @@ exports.signup_post = [
   },
 ];
 
+exports.be_member_get = function (req, res, next) {
+  if (!req.user) {
+    res.send('Login before accesing this Link.');
+  } else {
+    res.render('be_member', {
+      title: 'Be a member',
+    });
+  }
+};
+
+exports.be_member_post = [
+  body('secret_keyword').trim().notEmpty().withMessage('Secret keyword cannot be empty').isString().escape().withMessage('Only String permitted'),
+  (req, res, next) => {
+    const error_list = validationResult(req);
+    if (!error_list.isEmpty()) {
+      res.render('be_member', {
+        title: 'Be a Member',
+        error: error_list,
+      });
+    }
+
+    if (req.body.secret_keyword === 'SKULLY') {
+      User.findByIdAndUpdate(req.user.id, { membership_status: 'member' })
+        .then(() => {
+          console.log('Membership upgraded');
+          return;
+        })
+        .catch((err) => next(err));
+    } else {
+      const error = [{ msg: 'Keyword does not match' }];
+      res.render('be_member', {
+        title: 'Be a Member',
+        error: error,
+      });
+    }
+    res.redirect('/');
+  },
+];
+
 exports.new_post_get = function (req, res, next) {
-  //controller for New post Get
+  if (req.user && req.user.membership_status === member) {
+  } else {
+    res.send('You have to be a member before Posting');
+  }
 };
 exports.new_post_post = function (req, res, next) {
   //controller for new Post Post
