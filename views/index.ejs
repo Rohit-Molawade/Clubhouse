@@ -9,16 +9,18 @@
   </head>
   <body class="bg-content-background">
     <!--Header partial-->
-    <%- include('./partials/header.ejs') %>
+    <%- include('./partials/header.ejs', {user: user}) %>
     <div>
       <div class="flex flex-row">
         <div class="m-10 ml-36 flex basis-9/12 flex-col gap-6 p-8">
           <% posts.forEach(post => { %>
           <div class="flex flex-row divide-x-2 divide-black bg-white px-6 py-5 shadow-lg">
             <div class="mr-7 flex basis-4/12">
-              <img src=<%=`/images/${post.author.avatar_url}`%> class='aspect-square object-contain w-24 rounded-full mr-4' rel='preload' as='image'/>
+              <img src= <%= typeof user !== 'undefined' && user.membership_status === 'member' ? `/images/${post.author.avatar_url}` : '/images/unauthorized.png' %> class='aspect-square object-contain w-24 rounded-full mr-4' rel='preload' as='image'/>
               <div class="flex">
-                <div class="font-YsabeauSC text-xl font-bold"><%= post.author.full_name %></div>
+                <div class="font-YsabeauSC text-xl font-bold">
+                  <%= typeof user !== 'undefined' && user.membership_status === 'member' ? post.author.full_name : 'Anonymous'%>
+                </div>
                 <br />
               </div>
             </div>

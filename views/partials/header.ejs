@@ -2,19 +2,26 @@
   <div class="flex flex-auto flex-row">
     <a href="/"><p class="p-5 font-YsabeauSC text-2xl font-extrabold">ClubHouse</p></a>
   </div>
-  <div class="flex basis-3/12 flex-row justify-center space-x-5 px-2 align-middle font-Inter text-lg">
+  <div class="flex basis-4/12 flex-row justify-center items-center space-x-5 px-2 font-Inter text-lg">
     
-    <%# Display Login and Signup conditionally %>
-    <% if (typeof url !== 'undefined') { %>
-      <% if (url === '/signup') { %>
-        <button onclick="window.location.href='/login'" class="border-red-500 p-2 text-gray-400 hover:border-b-4 hover:text-white">Login</button>
-      <% } else if (url === '/login') { %>
-        <button onclick="window.location.href='/signup'" class="border-red-500 p-2 text-gray-400 hover:border-b-4 hover:text-white">Sign Up</button>
-      <% } %>
+    <% if (typeof user !== 'undefined') { %>
+      <button onclick="window.location.href='/be_member'" class="border-red-500 p-2 text-gray-500 hover:border-b-4 hover:text-white">Become a member!!</button>
+      <button onclick="window.location.href='/new_post'" class="border-red-500 p-2 text-gray-500 hover:border-b-4 hover:text-white">New Post</button>
+      <img src=<%= `/images/${user.avatar_url}` %> alt='User Avatar' class='p-1 rounded-full object-contain w-12 h-12 border-2 hover:border-red-500 cursor-pointer' rel='preload' as='image'>
     <% } else { %>
-      <button onclick="window.location.href='/login'" class="border-red-500 p-2 text-gray-400 hover:border-b-4 hover:text-white">Login</button>
-      <button onclick="window.location.href='/signup'" class="border-red-500 p-2 text-gray-400 hover:border-b-4 hover:text-white">Sign Up</button>
+      <%# Display Login and Signup conditionally %>
+      <% if (typeof url !== 'undefined') { %>
+        <% if (url === '/signup') { %>
+          <button onclick="window.location.href='/login'" class="border-red-500 p-2 text-gray-400 hover:border-b-4 hover:text-white">Login</button>
+        <% } else if (url === '/login') { %>
+          <button onclick="window.location.href='/signup'" class="border-red-500 p-2 text-gray-400 hover:border-b-4 hover:text-white">Sign Up</button>
+        <% } %>
+        <% } else { %>
+          <button onclick="window.location.href='/login'" class="border-red-500 p-2 text-gray-400 hover:border-b-4 hover:text-white">Login</button>
+          <button onclick="window.location.href='/signup'" class="border-red-500 p-2 text-gray-400 hover:border-b-4 hover:text-white">Sign Up</button>
+      <% } %>
     <% } %>
+     
   </div>
 </div>
  

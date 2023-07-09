@@ -15,6 +15,7 @@ exports.home_get = function (req, res, next) {
       res.render('index', {
         title: 'Home Page',
         posts: result,
+        user: req.user,
       });
     })
     .catch((err) => {
@@ -24,11 +25,15 @@ exports.home_get = function (req, res, next) {
 };
 
 exports.login_get = function (req, res, next) {
-  res.render('login', {
-    title: 'Login Page',
-    url: req.url,
-    error: req.flash('message'),
-  });
+  if (!req.user) {
+    res.render('login', {
+      title: 'Login Page',
+      url: req.url,
+      error: req.flash('message'),
+    });
+  } else {
+    res.send('User is already logged In');
+  }
 };
 
 exports.login_post = [
@@ -54,16 +59,21 @@ exports.login_post = [
 ];
 
 exports.signup_get = function (req, res, next) {
-  Avatar.find()
-    .then((names) => {
-      res.render('signup', {
-        title: 'SignUp Page',
-        url: req.url,
-        imgs: names,
-      });
-      return;
-    })
-    .catch((err) => next(err));
+  if (!req.user) {
+    Avatar.find()
+      .then((names) => {
+        res.render('signup', {
+          title: 'SignUp Page',
+          url: req.url,
+          imgs: names,
+          user: req.user,
+        });
+        return;
+      })
+      .catch((err) => next(err));
+  } else {
+    res.send('User is already logged in');
+  }
 };
 
 exports.signup_post = [
@@ -125,7 +135,7 @@ exports.signup_post = [
             last_name: req.body.last_name,
             email: req.body.email,
             avatar_url: req.body.avatar,
-            membership_status: 'member',
+            membership_status: 'visitor',
           };
 
           //Generate hashed password
