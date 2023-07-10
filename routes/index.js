@@ -21,9 +21,7 @@ router.post('/signup', UserController.signup_post);
 router.get('/new_post', UserController.new_post_get);
 
 /* POST new_post page. */
-router.post('/new_post', () => {
-  //GET New Post form
-});
+router.post('/new_post', UserController.new_post_post);
 
 router.get('/be_member', UserController.be_member_get);
 

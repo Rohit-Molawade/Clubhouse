@@ -188,7 +188,7 @@ exports.be_member_post = [
     if (!error_list.isEmpty()) {
       res.render('be_member', {
         title: 'Be a Member',
-        error: error_list,
+        error: error_list.array(),
       });
     }
 
@@ -212,21 +212,61 @@ exports.be_member_post = [
 
 exports.new_post_get = function (req, res, next) {
   //if (req.user && req.user.membership_status === 'member') {
-    res.render('new_post', {
-      title: 'Create new post',
-    })
+  res.render('new_post', {
+    title: 'Create new message',
+    user: req.user
+  });
   //} else {
-    //res.send('You have to be a member before Posting');
+  //res.send('You have to be a member before Posting');
   //}
 };
 
-exports.new_post_post = function (req, res, next) {
-  
-};
+exports.new_post_post = [
+  body('title')
+    .trim()
+    .notEmpty()
+    .withMessage('Title cannot be empty')
+    .isLength({ max: 32 })
+    .withMessage('Max length is 32')
+    .isString()
+    .escape()
+    .withMessage('Title should be string'),
+  body('content')
+    .trim()
+    .notEmpty()
+    .withMessage('content cannot be empty')
+    .isLength({ max: 100 })
+    .withMessage('Max length is 100')
+    .isString()
+    .escape()
+    .withMessage('Title should be string'),
+  (req, res, next) => {
+    const error_list = validationResult(req);
+    if (!error_list.isEmpty()) {
+      res.render('new_post', {
+        title: 'Create new message',
+        error: error_list.array(),
+        params: req.body,
+      });
+    }
+    /*const post = new Post({
+      author: req.user.id,
+      //timestamp: Math.floor(Date.now() / 1000),
+      title: req.body.title,
+      content: req.body.content,
+    });
 
-exports.logout_post = function (req,res,next) {
+    post.save((err) => {
+      if (err) return next(err);
+      console.log('post created');
+    });
+    res.redirect('/');*/
+  },
+];
+
+exports.logout_post = function (req, res, next) {
   req.logout((err) => {
-    if(err) return next(err)
-    res.redirect('/') 
-  })
-}
+    if (err) return next(err);
+    res.redirect('/');
+  });
+};

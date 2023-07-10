@@ -10,7 +10,7 @@
         <p class="font-Inter text-xl py-2">enter <strong>SKULLY</strong> to become Member</p>
 
         <form action="/be_member" method="POST">
-            <input type="text" id="secret_keyword" name="secret_keyword" placeholder="Enter Keyword" class="mt-4 text-lg form-primary border-header-background focus:border-header-background focus:ring-header-background ">
+            <input type="text" id="secret_keyword" name="secret_keyword" required placeholder="Enter Keyword" class="mt-4 text-lg form-primary border-header-background focus:border-header-background focus:ring-header-background ">
             <button type="submit" class="w-full bg-header-background text-white p-2 mb-14">SUMBIT</button>
         </form>
         <p class="font-Raleway text-lg py-2">Benefits:</p>
@@ -20,6 +20,19 @@
             <li>Be able to read Other users profile info.</li>
         </ul>
       </div>
+    </div>
+    <div>
+      <% if (typeof error !== 'undefined' && error.length) { %>
+        <div class="flex items-center justify-center m-2">
+          <div class="h-fit bg-title-text p-4 font-Raleway text-xl text-white">
+            <ul>
+              <% error.forEach(err => { %>
+              <li><%= err.msg || err %></li>
+              <% }) %>
+            </ul>
+          </div>
+        </div>
+        <% } %>
     </div>
   </body>
 </html>

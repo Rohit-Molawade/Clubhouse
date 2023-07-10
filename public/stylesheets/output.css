@@ -765,6 +765,10 @@ select {
   margin: 5rem;
 }
 
+.m-16 {
+  margin: 4rem;
+}
+
 .mx-48 {
   margin-left: 12rem;
   margin-right: 12rem;
