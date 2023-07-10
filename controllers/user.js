@@ -211,11 +211,22 @@ exports.be_member_post = [
 ];
 
 exports.new_post_get = function (req, res, next) {
-  if (req.user && req.user.membership_status === member) {
-  } else {
-    res.send('You have to be a member before Posting');
-  }
+  //if (req.user && req.user.membership_status === 'member') {
+    res.render('new_post', {
+      title: 'Create new post',
+    })
+  //} else {
+    //res.send('You have to be a member before Posting');
+  //}
 };
+
 exports.new_post_post = function (req, res, next) {
-  //controller for new Post Post
+  
 };
+
+exports.logout_post = function (req,res,next) {
+  req.logout((err) => {
+    if(err) return next(err)
+    res.redirect('/') 
+  })
+}

@@ -29,4 +29,6 @@ router.get('/be_member', UserController.be_member_get);
 
 router.post('/be_member', UserController.be_member_post);
 
+router.post('/logout', UserController.logout_post);
+
 module.exports = router;

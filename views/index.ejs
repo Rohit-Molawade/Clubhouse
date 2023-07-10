@@ -9,10 +9,10 @@
   </head>
   <body class="bg-content-background">
     <!--Header partial-->
-    <%- include('./partials/header.ejs', {user: user}) %>
+    <%- include('./partials/header.ejs') %>
     <div>
       <div class="flex flex-row">
-        <div class="m-10 ml-36 flex basis-9/12 flex-col gap-6 p-8">
+        <div class="m-8 ml-36 flex basis-9/12 flex-col gap-6 p-8">
           <% posts.forEach(post => { %>
           <div class="flex flex-row divide-x-2 divide-black bg-white px-6 py-5 shadow-lg">
             <div class="mr-7 flex basis-4/12">
@@ -32,7 +32,11 @@
           <hr />
           <% }) %>
         </div>
-        <div class="basis-3/12"></div>
+        <% if (typeof user !== 'undefined' && user.membership_status !== 'member') { %>
+          <div class="basis-3/12 my-16 mx-6 p-8 bg-header-background text-white h-fit shadow-lg font-Raleway text-lg">
+            <p>BECOME A MEMBER TO GAIN FULL ACCESS</p>
+          </div>
+        <% } %>
       </div>
     </div>
   </body>

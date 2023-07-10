@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('./partials/meta.ejs')%>
+  <body class="bg-content-background">
+    <%- include('./partials/header.ejs') %>
+    <div>
+        <div class="flex flex-col m-20 px-24 mx-40">
+            <p class="font-YsabeauSC text-3xl font-medium pb-6">CREATE MESSAGE</p>
+            <form action="/new_post" method="POST">
+                <div class="flex flex-col">
+                    <input type="text" id="title" name="title" placeholder="Title" class="border-0 font-Raleway text-black w-full text-xl"><br>
+                    <textarea class="border-0 font-Inter" rows="4" placeholder="Content of your message"></textarea><br>
+                    <button type="submit" class="bg-header-background text-white p-3 font-Raleway text-lg mt-4 hover:bg-white hover:text-black">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </body>
+</html>
