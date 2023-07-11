@@ -16,11 +16,11 @@ var indexRouter = require('./routes/index');
 const flash = require('connect-flash');
 
 //MongoDB connection
-mongo_connect().catch((err) => console.log('Mongo Connection not possible'));
+mongo_connect().catch(() => console.log('Mongo Connection not possible'));
 
 mongoose.set('strictQuery', false);
 async function mongo_connect() {
-  await mongoose.connect(process.env.Mongo_URL);
+	await mongoose.connect(process.env.Mongo_URL);
 }
 
 var app = express();
@@ -30,12 +30,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 app.use(
-  session({
-    secret: process.env.session_secret,
-    resave: false,
-    saveUninitialized: true,
-    cookie: { maxAge: 60 * 60 * 1000 } // 1 hour
-  })
+	session({
+		secret: process.env.session_secret,
+		resave: false,
+		saveUninitialized: true,
+		cookie: { maxAge: 60 * 60 * 1000 }, // 1 hour
+	})
 );
 
 app.use(passport.initialize());
@@ -43,36 +43,36 @@ app.use(passport.session());
 app.use(flash());
 
 passport.use(
-  new LocalStrategy({ usernameField: 'email', passwordField: 'password', passReqToCallback: true }, async (req, email, password, done) => {
-    try {
-      const user = await User.findOne({ email: email });
-      if (!user) {
-        return done(null, false, req.flash('message', 'Email or Password is invalid'));
-      }
-      crypt.compare(password, user.password, (err, result) => {
-        if (result) {
-          return done(null, user, req.flash('message', 'Login Successful'));
-        } else {
-          return done(null, false, req.flash('message', 'Email or Password is invalid 222'));
-        }
-      });
-    } catch (error) {
-      return done(error, req.flash('message', 'Some error occured'));
-    }
-  })
+	new LocalStrategy({ usernameField: 'email', passwordField: 'password', passReqToCallback: true }, async (req, email, password, done) => {
+		try {
+			const user = await User.findOne({ email: email });
+			if (!user) {
+				return done(null, false, req.flash('message', 'Email or Password is invalid'));
+			}
+			crypt.compare(password, user.password, (err, result) => {
+				if (result) {
+					return done(null, user, req.flash('message', 'Login Successful'));
+				} else {
+					return done(null, false, req.flash('message', 'Email or Password is invalid'));
+				}
+			});
+		} catch (error) {
+			return done(error, req.flash('message', 'Some error occured'));
+		}
+	})
 );
 
 passport.serializeUser(function (user, done) {
-  done(null, user.id);
+	done(null, user.id);
 });
 
 passport.deserializeUser(async function (id, done) {
-  try {
-    const user = await User.findById(id, 'first_name last_name email avatar_url membership_status').exec();
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
+	try {
+		const user = await User.findById(id, 'first_name last_name email avatar_url membership_status').exec();
+		done(null, user);
+	} catch (err) {
+		done(err);
+	}
 });
 
 app.use(logger('dev'));
@@ -85,18 +85,18 @@ app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
-  next(createError(404));
+	next(createError(404));
 });
 
 // error handler
 app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+	// set locals, only providing error in development
+	res.locals.message = err.message;
+	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+	// render the error page
+	res.status(err.status || 500);
+	res.render('error');
 });
 
 module.exports = app;
