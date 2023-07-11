@@ -5,8 +5,6 @@ const { body, validationResult } = require('express-validator');
 const async = require('async');
 const crypt = require('bcrypt');
 const passport = require('passport');
-const date = require('date-fns');
-const intlFormat = require('date-fns/intlFormat');
 const saltrounds = 10;
 
 exports.home_get = function (req, res, next) {
