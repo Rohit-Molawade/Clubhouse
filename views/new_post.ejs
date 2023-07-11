@@ -1,32 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partials/meta.ejs')%>
-  <body class="bg-content-background">
-    <%- include('./partials/header.ejs') %>
-    <div class="flex flex-col">
-        <div>
-            <% if (typeof error !== 'undefined' && error.length) { %>
-                <div class="flex items-center justify-center m-2">
-                    <div class="h-fit bg-title-text p-4 font-Raleway text-xl text-white">
-                        <ul>
-                            <% error.forEach(err => { %>
-                            <li><%= err.msg || err %></li>
-                            <% }) %>
-                        </ul>
-                    </div>
-                </div>
-            <% } %>
-        </div>
-        <div class="flex flex-col m-16 px-24 mx-40">
-            <p class="font-YsabeauSC text-3xl font-medium pb-6">CREATE MESSAGE</p>
-            <form action="/new_post" method="POST">
-                <div class="flex flex-col">
-                    <input type="text" id="title" name="title" required placeholder="Title" class="border-0 font-Raleway text-black w-full text-xl" value='<%= typeof params ==='undefined' ? '' : params.title %>'><br>
-                    <textarea class="border-0 font-Inter" rows="4" placeholder="Content of your message" id="content" name="content"><%= typeof params ==='undefined' ? '' : params.content %></textarea><br>
-                    <button type="submit" class="bg-header-background text-white p-3 font-Raleway text-lg mt-4 hover:bg-white hover:text-black">Submit</button>
-                </div>
-            </form>
-        </div>
-    </div>
-  </body>
+<%- include('./partials/meta.ejs')%>
+
+	<body class="bg-content-background">
+		<%- include('./partials/header.ejs') %>
+			<div class="flex flex-col">
+				<div>
+					<% if (typeof error !=='undefined' && error.length) { %>
+						<div class="flex items-center justify-center m-2">
+							<div class="h-fit bg-title-text p-4 font-Raleway text-xl text-white">
+								<ul>
+									<% error.forEach(err=> { %>
+										<li>
+											<%= err.msg || err %>
+										</li>
+										<% }) %>
+								</ul>
+							</div>
+						</div>
+						<% } %>
+				</div>
+				<div class="flex flex-col m-16 px-24 mx-40">
+					<p class="font-YsabeauSC text-3xl font-medium pb-6">CREATE MESSAGE</p>
+					<form action="/new_post" method="POST">
+						<div class="flex flex-col">
+							<input type="text" id="title" name="title" required placeholder="Title" class="border-0 font-Raleway text-black w-full text-xl" value='<%= typeof params === 'undefined' ? '' : params.title %>'><br>
+							<textarea class="border-0 font-Inter" rows="4" placeholder="Content of your message" id="content" name="content"><%= typeof params ==='undefined' ? '' : params.content %></textarea><br>
+							<button type="submit"
+								class="bg-header-background text-white p-3 font-Raleway text-lg mt-4 hover:bg-white hover:text-black">
+								Submit
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		<%- include('./partials/footer.ejs') %>
+	</body>
+
 </html>

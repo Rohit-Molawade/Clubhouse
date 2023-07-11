@@ -1,55 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('./partials/meta.ejs')%>
-  <body class="bg-content-background">
-    <!--Header Partial-->
-    <%- include('./partials/header.ejs') %>
-    <div class="flex content-center justify-center">
-      <div class="mx-48 my-16 flex max-w-lg content-center justify-center rounded-2xl bg-white py-12 pl-16 pr-32 shadow-lg">
-        <div class="flex flex-col font-Inter">
-          <p class="mb-6 font-YsabeauSC text-4xl font-bold tracking-wider text-title-text">Create your account</p>
-          <div>
-            <form action="/signup" method="POST">
-              <input type="text" name="first_name" id="first_name" class="form-primary" placeholder="First Name" required value='<%= typeof user ===
-              'undefined' ? '' : user.first_name %>'/> <br />
-              <input type="text" name="last_name" id="last_name" class="form-primary" placeholder="Last Name" required value='<%= typeof user ===
-              'undefined' ? '' : user.last_name %>'/> <br />
-              <input type="email" name="email" id="email" class="form-primary" placeholder="Email" required value='<%= typeof user === 'undefined' ?
-              '' : user.email %>'/><br />
-              <input type="password" name="password" id="password" class="form-primary" placeholder="Password" required /><br />
-              <input
-                type="password"
-                name="confirm_password"
-                id="confirm_password"
-                class="form-primary"
-                placeholder="Confirm Password"
-                required /><br />
-              <div class="flex w-80 flex-row overflow-auto pt-5">
-                <% imgs.forEach(img => { %><input type="radio" name="avatar" id="<%= img.name %>" value="<%=
-                `${img.name}.webp` %>" class="radio-grp" <%= typeof user !== 'undefined' && `${img.name}.webp` === user.avatar ? 'checked' : '' %>/>
-                <label for="<%= img.name %>"><img src=<%= `/images/${img.name}.webp` %> class="radio-img" alt="<%= img.name %>" /></label>
-                <% }) %>
-              </div>
-              <button
-                type="submit"
-                class="mt-10 w-full rounded-md bg-title-text p-3 font-Raleway text-base font-semibold text-white hover:ring-2 hover:ring-title-text hover:ring-offset-0">
-                Sign me Up
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-      <% if (typeof error !== 'undefined') { %>
-      <div class="flex items-center justify-center">
-        <div class="h-fit bg-title-text p-10 font-Raleway text-xl text-white">
-          <ul>
-            <% error.forEach(err => { %>
-            <li><%= err.msg %></li>
-            <% }) %>
-          </ul>
-        </div>
-      </div>
-      <% } %>
-    </div>
-  </body>
+<%- include('./partials/meta.ejs')%>
+	<body class="bg-content-background">
+		<!--Header Partial-->
+		<%- include('./partials/header.ejs') %>
+			<div class="flex content-center justify-center">
+				<div
+					class="mx-48 my-16 flex max-w-lg content-center justify-center rounded-2xl bg-white py-12 pl-16 pr-32 shadow-lg">
+					<div class="flex flex-col font-Inter">
+						<p class="mb-6 font-YsabeauSC text-4xl font-bold tracking-wider text-title-text">
+							Create your account
+						</p>
+						<div>
+							<form action="/signup" method="POST">
+								<input type="text" name="first_name" id="first_name" class="form-primary" placeholder="First Name" required value='<%= typeof user === 'undefined' ? '' : user.first_name %>'/> <br />
+								<input type="text" name="last_name" id="last_name" class="form-primary" placeholder="Last Name" required value='<%= typeof user === 'undefined' ? '' : user.last_name %>'/> <br />
+								<input type="email" name="email" id="email" class="form-primary" placeholder="Email" required value='<%= typeof user === 'undefined' ? '' : user.email %>'/><br />
+								<input type="password" name="password" id="password" class="form-primary" placeholder="Password" required /><br />
+								<input type="password" name="confirm_password" id="confirm_password" class="form-primary" placeholder="Confirm Password" required /><br />
+								<div class="flex w-80 flex-row overflow-auto pt-5">
+									<% imgs.forEach(img => { %>
+										<input type="radio" name="avatar" id="<%= img.name %>" value="<%= `${img.name}.webp` %>" class="radio-grp" <%=typeof user !=='undefined' && `${img.name}.webp`===user.avatar ? 'checked' : '' %>/>
+										<label for="<%= img.name %>">
+											<img src=<%=`/images/${img.name}.webp` %> class="radio-img" alt="<%= img.name %>" />
+										</label>
+									<% }) %>
+								</div>
+								<button type="submit"
+									class="mt-10 w-full rounded-md bg-title-text p-3 font-Raleway text-base font-semibold text-white hover:ring-2 hover:ring-title-text hover:ring-offset-0">
+									Sign me Up
+								</button>
+							</form>
+						</div>
+					</div>
+				</div>
+				<% if (typeof error !=='undefined' ) { %>
+					<div class="flex items-center justify-center">
+						<div class="h-fit bg-title-text p-10 font-Raleway text-xl text-white">
+							<ul>
+								<% error.forEach(err=> { %>
+									<li>
+										<%= err.msg %>
+									</li>
+								<% }) %>
+							</ul>
+						</div>
+					</div>
+				<% } %>
+			</div>
+		<%- include('./partials/footer.ejs') %>
+	</body>
 </html>

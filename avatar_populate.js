@@ -10,6 +10,7 @@ main().catch((err) => console.log(err));
 
 async function main() {
   console.log('Debug: About to connect');
+  // eslint-disable-next-line no-undef
   await mongoose.connect(process.env.Mongo_URL);
   console.log('Debug: Should be connected?');
   await createAvatar();

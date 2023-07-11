@@ -1,46 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title><%= title %></title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Raleway:wght@700&family=Ysabeau+SC:wght@500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/stylesheets/output.css" />
-  </head>
-  <body class="bg-content-background">
-    <!--Header partial-->
-    <%- include('./partials/header.ejs') %>
-    <div>
-      <div class="flex flex-row">
-        <div class="m-8 ml-36 flex basis-9/12 flex-col gap-6 p-8">
-          <% posts.forEach(post => { %>
-          <div class="flex flex-row divide-x-2 divide-black bg-white px-6 py-5 shadow-lg">
-            <div class="mr-7 flex basis-4/12">
-              <img src= <%= typeof user !== 'undefined' && user.membership_status === 'member' ? `/images/${post.author.avatar_url}` : '/images/unauthorized.png' %> class='aspect-square object-contain w-24 rounded-full mr-4' rel='preload' as='image'/>
-              <div class="flex flex-col gap-5">
-                <div class="font-YsabeauSC text-xl font-bold">
-                  <%= typeof user !== 'undefined' && user.membership_status === 'member' ? post.author.full_name : 'Anonymous'%>
-                </div>
-                <div class="font-Inter text-sm">
-                  <p class="pb-1 "><%= post.date %></p>
-                  <p class="font-light"><%= post.time %></p>
-                </div>
-              </div>
-            </div>
-            <div class="flex basis-8/12 flex-col pl-7">
-              <div class="pb-3 font-Raleway text-lg font-semibold"><%= post.title %></div>
-              <div class="font-Inter text-base font-normal"><%= post.content %></div>
-            </div>
-          </div>
-          <hr />
-          <% }) %>
-        </div>
-        <% if (typeof user !== 'undefined' && user.membership_status !== 'member') { %>
-          <div class="basis-3/12 my-16 mx-6 p-8 bg-header-background text-white h-fit shadow-lg font-Raleway text-lg">
-            <p>BECOME A MEMBER TO GAIN FULL ACCESS</p>
-          </div>
-        <% } %>
-      </div>
-    </div>
-  </body>
+
+<head>
+	<title>
+		<%= title %>
+	</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+	<link
+		href="https://fonts.googleapis.com/css2?family=Inter&family=Raleway:wght@700&family=Ysabeau+SC:wght@500&display=swap"
+		rel="stylesheet" />
+	<link rel="stylesheet" href="/stylesheets/output.css" />
+</head>
+
+<body class="bg-content-background">
+	<!--Header partial-->
+	<%- include('./partials/header.ejs') %>
+		<div>
+			<div class="flex flex-row">
+				<div class="m-8 ml-36 flex basis-9/12 flex-col gap-6 p-8">
+					<% posts.forEach(post=> { %>
+						<div class="flex flex-row divide-x-2 divide-black bg-white px-6 py-5 shadow-lg">
+							<div class="mr-7 flex basis-4/12">
+								<img src=<%=typeof user !=='undefined' && user.membership_status==='member' ? `/images/${post.author.avatar_url}` : '/images/unauthorized.png' %>
+								class='aspect-square object-contain w-24 rounded-full mr-4' rel='preload' as='image'/>
+								<div class="flex flex-col gap-5">
+									<div class="font-YsabeauSC text-xl font-bold">
+										<%= typeof user !=='undefined' && user.membership_status==='member' ? post.author.full_name : 'Anonymous' %>
+									</div>
+									<div class="font-Inter text-sm">
+										<p class="pb-1 ">
+											<%= post.date %>
+										</p>
+										<p class="font-light">
+											<%= post.time %>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="flex basis-8/12 flex-col pl-7">
+								<div class="pb-3 font-Raleway text-lg font-semibold">
+									<%= post.title %>
+								</div>
+								<div class="font-Inter text-base font-normal">
+									<%= post.content %>
+								</div>
+							</div>
+						</div>
+						<hr />
+					<% }) %>
+				</div>
+				<% if (typeof user !=='undefined' && user.membership_status !=='member' ) { %>
+					<div
+						class="basis-3/12 my-16 mx-6 p-8 bg-header-background text-white h-fit shadow-lg font-Raleway text-lg">
+						<p>BECOME A MEMBER TO GAIN FULL ACCESS</p>
+					</div>
+				<% } %>
+			</div>
+		</div>
+	<!--Footer partial-->
+	<%- include('./partials/footer.ejs') %>
+</body>
+
 </html>

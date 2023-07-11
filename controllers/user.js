@@ -24,7 +24,7 @@ exports.home_get = function (req, res, next) {
 	return;
 };
 
-exports.login_get = function (req, res, next) {
+exports.login_get = function (req, res) {
 	if (!req.user) {
 		res.render('login', {
 			title: 'Login Page',
@@ -171,9 +171,11 @@ exports.signup_post = [
 	},
 ];
 
-exports.be_member_get = function (req, res, next) {
+exports.be_member_get = function (req, res) {
 	if (!req.user) {
 		res.send('Login before accesing this Link.');
+	} else if(req.user.membership_status === 'member'){
+		res.send('You are already a Member')
 	} else {
 		res.render('be_member', {
 			title: 'Be a member',
@@ -190,6 +192,7 @@ exports.be_member_post = [
 				title: 'Be a Member',
 				error: error_list.array(),
 			});
+			return;
 		}
 
 		if (req.body.secret_keyword === 'SKULLY') {
@@ -210,7 +213,7 @@ exports.be_member_post = [
 	},
 ];
 
-exports.new_post_get = function (req, res, next) {
+exports.new_post_get = function (req, res) {
 	if (req.user && req.user.membership_status === 'member') {
 		res.render('new_post', {
 			title: 'Create new message',
